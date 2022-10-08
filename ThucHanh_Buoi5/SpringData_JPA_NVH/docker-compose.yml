@@ -1,0 +1,26 @@
+version: "3.7"
+services:
+  api_service:
+    build: .
+    restart: always
+    ports:
+      - 8081:8080
+    volumes:
+      - .m2:/root/.m2
+    stdin_open: true
+    tty: true
+  mysql_db:
+    image: "springdata_jpa_nvh:latest"
+    restart: always
+    ports:
+      - 3307:3306
+    environment:
+      MYSQL_DATABASE: schooldb
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root123456
+    volumes:
+      - db:/var/lib/mysql
+
+volumes:
+  db:
+    driver: local
